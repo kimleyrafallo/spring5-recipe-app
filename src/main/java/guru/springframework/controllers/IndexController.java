@@ -2,6 +2,7 @@ package guru.springframework.controllers;
 
 import java.util.Optional;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -10,6 +11,7 @@ import guru.springframework.models.UnitOfMeasure;
 import guru.springframework.repositories.CategoryRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
 
+@Controller
 public class IndexController {
 
     private final CategoryRepository categoryRepository;
