@@ -2,6 +2,7 @@ package guru.springframework.controllers;
 
 import java.util.Optional;
 
+import guru.springframework.services.RecipeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,23 +15,16 @@ import guru.springframework.repositories.UnitOfMeasureRepository;
 @Controller
 public class IndexController {
 
-    private final CategoryRepository categoryRepository;
-    private final UnitOfMeasureRepository unitOfMeasureRepository;
+    private final RecipeService recipeService;
 
-    public IndexController(CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
-        this.categoryRepository = categoryRepository;
-        this.unitOfMeasureRepository = unitOfMeasureRepository;
+    public IndexController(RecipeService recipeService) {
+        this.recipeService = recipeService;
     }
 
     @RequestMapping({ "", "/", "/index" })
     public String getIndexPage(Model model) {
 
-        Optional<Category> category = categoryRepository.findByDescription("American");
-        Optional<UnitOfMeasure> uom = unitOfMeasureRepository.findByDescription("Teaspoon");
-        System.out.println(category.get().getId());
-        System.out.println(uom.get().getId());
-        model.addAttribute("category", category.get().getId());
-        model.addAttribute("uom", uom.get().getId());
+        model.addAttribute("recipes", recipeService.getRecipes());
 
         return "index";
     }
